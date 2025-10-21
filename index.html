@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    
+/* Reset sencillo y tipografía */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+    padding: 20px;
+    line-height: 1.5;
+    background-color: #fdfdfd;
+}
+h1 {
+    margin: 24px 0 12px;
+    color: #333;
+}
+article {
+    border: 2px dotted rgba(0, 128, 128, 0.4);
+    padding: 16px;
+    margin-bottom: 28px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+/* estilos comunes para los bloques de ejemplo */
+.ejemplo div {
+    border: 2px solid rgba(100, 100, 255, 0.5);
+    padding: 16px;
+    text-align: center;
+    margin: 8px;
+    background-color: #eef2ff;
+}
+
+/* ------------------ DESPLIEGUE ------------------ */
+/* Elementos en BLOQUE: ocupan todo el ancho disponible y cada uno salta a la siguiente línea */
+.bloque div {
+    display: block;
+    width: 100%;
+}
+
+/* Elementos en LINEA y INLINE-BLOCK
+   display:inline -> se comporta como texto (no acepta width/height)
+   display:inline-block -> se comporta como caja pero sin forzar salto de línea */
+.enlinea div {
+    display: inline-block;
+    width: 140px;
+    vertical-align: top;
+    background-color: #dff0ea;
+    border-radius: 4px;
+}
+
+/* Elementos tipo TABLA: se comportan como celdas de tabla (alineación tipo tabla) */
+.entable {
+    display: table;
+    width: 100%;
+    background-color: #fff0f5;
+}
+.entable div {
+    display: table-cell;
+    padding: 12px;
+    border: 1px solid #ccc;
+}
+
+/* ------------------ POSICIONAMIENTO ------------------ */
+/* Contenedor relativo para que el absoluto tenga referencia */
+.posicionamiento {
+    position: relative;
+    height: 180px;
+    background: rgba(100, 100, 100, 0.05);
+    padding: 16px;
+    border: 1px solid #ddd;
+}
+
+/* position: relative -> desplaza el elemento respecto a su posición normal
+   útil para micro-ajustes sin sacar el elemento del flujo */
+#relativo {
+    position: relative;
+    left: 25px;
+    top: 10px;
+    background: #e6f2ff;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+/* position: absolute -> posiciona el elemento respecto al antecesor posicionado (aquí .posicionamiento)
+   lo saca del flujo normal */
+#absoluto {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    background: #fff6e5;
+    padding: 10px;
+    border: 1px solid #f0c36d;
+    border-radius: 4px;
+}
+
+/* position: fixed -> el elemento queda fijo respecto a la ventana (viewport)
+   permanece visible aunque se haga scroll */
+#fijo {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    background: #4a90e2;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ------------------ FLOTANTES ------------------ */
+/* float:left/float:right -> saca elementos del flujo y los coloca a los lados
+   es común usar un clearfix en el contenedor para que crezca con los flotantes */
+.flotante {
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.025);
+    border: 1px dashed #bbb;
+}
+.flotante div {
+    float: left;
+    width: 32%;
+    margin: 0 1% 16px;
+    min-height: 90px;
+    padding: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+.flotante div:nth-child(odd) {
+    background: #f0f9ff;
+}
+.flotante div:nth-child(even) {
+    background: #f5fff0;
+}
+/* Clearfix para contener los elementos flotantes */
+.flotante::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+  </style>
+</head>
+<body>
+  <h1>DESPLIEGUE: bloque, inline, table-cell</h1>
+  <article class="ejemplo bloque">
+    <!-- display: block -> cada <div> ocupa su propia línea -->
+    <div>UNO (block)</div>
+    <div>DOS (block)</div>
+    <div>TRES (block)</div>
+  </article>
+
+  <article class="ejemplo enlinea">
+    <!-- display: inline-block -> elementos en línea pero con tamaño -->
+    <div>UNO (inline-block)</div>
+    <div>DOS (inline-block)</div>
+    <div>TRES (inline-block)</div>
+  </article>
+
+  <article class="ejemplo entable">
+    <!-- display: table-cell -> se comportan como celdas de tabla -->
+    <div>UNO (table-cell)</div>
+    <div>DOS (table-cell)</div>
+    <div>TRES (table-cell)</div>
+  </article>
+
+  <h1>POSICIONAMIENTO: relative / absolute / fixed</h1>
+  <article class="posicionamiento">
+    <!-- .posicionamiento tiene position:relative para que #absoluto se posicione respecto a este contenedor -->
+    <div id="relativo">RELATIVO (position: relative)<!--
+      Comentario: usado para desplazar el elemento sin sacarlo del flujo.
+      En este ejemplo lo muevo 20px a la derecha respecto a su posición normal.
+    --></div>
+
+    <div id="absoluto">ABSOLUTO (position: absolute)<!--
+      Comentario: colocado en la esquina superior derecha del contenedor .posicionamiento
+      gracias a position:relative en el padre.
+    --></div>
+
+    <div id="fijo">FIJO (position: fixed)</div>
+  </article>
+
+  <h1>FLOTANTES (float)</h1>
+  <article class="flotante">
+    <!-- float:left en los elementos crea una composición a la izquierda; el clearfix hace que .flotante englobe los flotantes -->
+    <div>PRIMER (flotante)</div>
+    <div>SEGUNDO (flotante)</div>
+    <div>TERCERO (flotante)</div>
+    <div>CUARTO (flotante)</div>
+    <div>QUINTO (flotante)</div>
+    <div>SEXTO (flotante)</div>
+  </article>
+
+  <!-- EXPLICACIÓN BREVE -->
+    - display: Define cómo se muestra una caja en el diseño (block, inline, inline-block, table-cell).
+    
+    - position: Indica cómo se posiciona un elemento; relative = lo mueve sin sacarlo del flujo normal,
+   
+    - absolute = Se ubica según el contenedor posicionado más cercano, fixed = se fija a la ventana del navegador.
+    
+    - float: Aparta el elemento del flujo estándar y lo alinea a un lado (izquierda o derecha); si el contenedor
+     debe ajustarse a ellos, se recomienda usar clearfix.
+ 
+
+  </body>
+</html>
